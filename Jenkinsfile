@@ -1,6 +1,6 @@
 pipeline {
 	agent {
-		label 'docker-node'
+		label 'aj-node'
 	}
 	stages {
 		stage ("Git checkout"){
