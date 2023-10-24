@@ -6,14 +6,14 @@ pipeline {
 		stage ("Git checkout"){
 			steps {
 				git branch: "master",
-					url: "https://github.com/Research-Associate-Internship/dvws"
+					url: "https://github.com/Research-Associate-Internship/DVWA"
 				sh "ls"
 			}
 		}
 		stage ("Git Secrets"){
 			steps{
 				sh "rm trufflehog || true"
-				sh "docker run gesellix/trufflehog --json https://github.com/Research-Associate-Internship/dvws > trufflehog"
+				sh "docker run gesellix/trufflehog --json https://github.com/Research-Associate-Internship/DVWA > trufflehog"
 				sh "cat trufflehog"
 			}
 		}
@@ -26,12 +26,6 @@ pipeline {
 			steps{
 				sh "docker run --rm --volume \$(pwd) secfigo/bandit:latest"
 			}
-		}
-		
-		stage ("Static Analysis with python-taint"){
-			steps{
-				sh "docker run --rm --volume \$(pwd) vickyrajagopal/python-taint-docker pyt ."
-			}
-		}					
+		}				
 	}
 }
